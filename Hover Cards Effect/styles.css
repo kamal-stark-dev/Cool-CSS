@@ -47,25 +47,22 @@ body {
   transform: translateZ(120px);
 }
 
-/* .list .item:hover ~ .item {
-  transform: translateZ(-120px);
-}
-
-.before-hover {
-  transform: translateZ(-120px);
-} */
-
 .list .item:hover + * {
   filter: brightness(0.7);
-  transform: translateZ(100px) rotateY("60deg");
+  transform: translateZ(80px) rotateY(30deg);
+}
+
+.list .item:has(+ *:hover) {
+  filter: brightness(0.7);
+  transform: translateZ(80px) rotateY(-30deg);
 }
 
 .list .item:hover + * + * {
   filter: brightness(0.4);
-  transform: translateZ(100px) rotateY("30deg");
+  transform: translateZ(40px) rotateY(10deg);
 }
 
-.liat .item:has(+ *:hover) {
-  filter: brightness(0.7);
-  transform: translateZ(100px) rotateY("-60deg");
+.list .item:has(+ * + *:hover) {
+  filter: brightness(0.4);
+  transform: translateZ(40px) rotateY(-10deg);
 }
