@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <style>
+      body {
+        background: #f8f8f8;
+        color: 222;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: Helvetica;
+      }
+      h2 {
+        margin: 12px 0;
+      }
+      span {
+        font-size: 18px;
+        background: #ddd;
+        padding: 6px;
+        margin-bottom: 12px;
+      }
+      :root {
+        counter-reset: headings;
+      }
+      h2 {
+        counter-increment: headings;
+      }
+      h2::before {
+        content: counter(headings);
+        margin-right: 8px;
+        padding: 0.2rem 0.6rem;
+        background: #d5ddf3;
+      }
+    </style>
+  </head>
+  <body>
+    <span>Dynamically add heading numbers.</span>
+    <h2>Haha</h2>
+    <h2>Hehe</h2>
+    <h2>Huhu</h2>
+  </body>
+</html>

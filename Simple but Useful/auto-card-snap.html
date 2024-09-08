@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <style>
+      body {
+        background: #f8f8f8;
+        color: 222;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 97vh;
+        font-family: Helvetica;
+      }
+      span {
+        padding: 0.4rem 0.8rem;
+        background: #ddd;
+        border-radius: 6px;
+        margin-bottom: 3rem;
+      }
+      .wrapper {
+        display: flex;
+        gap: 20px;
+        width: 400px;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+      }
+      .card {
+        scroll-snap-align: center;
+        box-sizing: border-box;
+        padding: 20px 30px;
+        flex-shrink: 0;
+        width: 400px;
+        height: 200px;
+        background: white;
+        text-align: center;
+        border-radius: 1rem 1rem 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <span>Try Dragging the slider and see it snap automatically.</span>
+    <div class="wrapper">
+      <div class="card">
+        <h2>Card 1</h2>
+        <p>Hello Reader, I am a card.</p>
+      </div>
+      <div class="card">
+        <h2>Card 2</h2>
+        <p>Hello Reader, I am a card.</p>
+      </div>
+      <div class="card">
+        <h2>Card 3</h2>
+        <p>Hello Reader, I am a card.</p>
+      </div>
+      <div class="card">
+        <h2>Card 4</h2>
+        <p>Hello Reader, I am a card.</p>
+      </div>
+      <div class="card">
+        <h2>Card 5</h2>
+        <p>Hello Reader, I am a card.</p>
+      </div>
+    </div>
+  </body>
+</html>
