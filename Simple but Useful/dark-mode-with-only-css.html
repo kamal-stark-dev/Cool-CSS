@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <style>
+      /* root variables */
+      :root {
+        --background: #f8f8f8;
+        --text-color: #222;
+      }
+      body {
+        background: var(--background);
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        gap: 1rem;
+        font-family: Helvetica;
+      }
+      select {
+        padding: 0.2rem;
+        font-size: 1.1rem;
+        outline: none;
+      }
+      /* applying the styles on the body tag */
+      body:has(option[value="dark"]:checked) {
+        --background: #222;
+        --text-color: #fff;
+      }
+      body:has(option[value="yellow"]:checked) {
+        --background: yellow;
+        --text-color: #222;
+      }
+      body:has(option[value="pink"]:checked) {
+        --background: #ff91a4;
+        --text-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Dark Mode with just CSS</h2>
+    <select name="mode" id="mode">
+      <option value="light">Light Mode</option>
+      <option value="dark">Dark Mode</option>
+      <option value="yellow">Yellow Mode</option>
+      <option value="pink">Pink Mode</option>
+    </select>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <style>
+      body {
+        background: #f8f8f8;
+        color: #222;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        gap: 1rem;
+        font-family: Helvetica;
+      }
+      /* We can't use linear gradient property on a text, so we'll apply it to bg */
+      h1 {
+        font-size: 10rem;
+        background: linear-gradient(
+          119deg,
+          rgb(2, 108, 223) 0%,
+          rgb(1, 167, 236) 44.15%,
+          rgb(0, 246, 253) 100%
+        );
+        background-clip: text;
+        color: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HELLO WORLD</h1>
+  </body>
+</html>
