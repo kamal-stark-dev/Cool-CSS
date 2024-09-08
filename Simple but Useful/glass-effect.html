@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <style>
+      body {
+        background: #222;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        font-family: Helvetica;
+      }
+      .container {
+        /*width: min(700px, 80%);*/
+        /*width: max(400px, 80%);*/
+        width: clamp(
+          300px,
+          80%,
+          800px
+        ); /* takes min preferred and max values */
+        height: max-content;
+        /*background: #1E90FF;*/
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(6px);
+        color: white;
+        padding: 2rem;
+        border-radius: 16px;
+      }
+      .circle {
+        width: 100px;
+        aspect-ratio: 1 / 1;
+        border-radius: 100%;
+        background: orange;
+        position: absolute;
+        z-index: -1;
+      }
+      .one {
+        width: 160px;
+        left: 20%;
+        top: 25%;
+      }
+      .two {
+        width: 120px;
+        right: 20%;
+        bottom: 25%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Heading</h1>
+      <p>
+        You can use the min and max functions in css to select the minimum value
+        and the maximun values between some set of values and then assign that
+        to a property like with and height of a container which makes it more
+        responsive and also sets a condition past which it'll be static.
+      </p>
+    </div>
+    <div class="circle one"></div>
+    <div class="circle two"></div>
+  </body>
+</html>

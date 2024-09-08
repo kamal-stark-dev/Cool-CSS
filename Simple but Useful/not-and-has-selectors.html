@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+    <style>
+      body {
+        background: #f8f8f8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        gap: 1rem;
+        font-family: Helvetica;
+      }
+      .not,
+      .has {
+        display: flex;
+        gap: 1rem;
+      }
+      button {
+        padding: 0.6rem 1.6rem;
+        border: none;
+        background: #1E90FF;
+        color: white;
+        font-size: 1.1rem;
+        border-radius: 2rem;
+      }
+      button:hover {
+        background: #8169E1;
+      }
+      span {
+        background: #ccc;
+        border-radius: 6px;
+        padding: 0.4rem;
+      }
+      /* :not() - leaves the specified object */
+      .not button:not(:first-child):not(:nth-child(4)) {
+        background: red;
+      }
+
+      /* :has() - applies css if the element has the specified obbject */
+      .has button:has(i) {
+        padding-right: 1.2rem;
+      }
+      .has button:has(i) i {
+        margin-left: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Not Selector <span>:not()</span><h2>
+    <div class="not">
+      <button>Button</button>
+      <button>Button</button>
+      <button>Button</button>
+      <button>Button</button>
+      <button>Button</button>
+    </div>
+
+    <h2>Has Selector <span>:has()</span></h2>
+    <div class="has">
+      <button>Button</button>
+      <button>Button</button>
+      <button>Button<i class="ri-arrow-right-line"></i></button>
+      <button>Button</button>
+      <button>Button<i class="ri-arrow-go-back-fill"></i></button>
+    </div>
+  </body>
+</html>
