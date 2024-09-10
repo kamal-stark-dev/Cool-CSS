@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Useful but less known HTML tags</title>
+    <style>
+      :root {
+        counter-reset: headings;
+        --background-color: #f8f8f8;
+        --card-background: #fff;
+        --text-color: #222;
+        --btn-bg-color: #222;
+        --btn-bg-color-transparent: #222222ee;
+        --btn-color: #fff;
+        --highlight: #44d255;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 3rem 10rem;
+        background-color: var(--background-color);
+        color: var(--text-color);
+      }
+      .tag h2 {
+        counter-increment: headings;
+      }
+      .tag h2::before {
+        content: counter(headings) ". ";
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      span {
+        font-size: 1.1rem;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        gap: 0.6rem;
+      }
+      button {
+        padding: 0.6rem 1.4rem;
+        border: none;
+        font-size: 1rem;
+        color: var(--btn-color);
+        background-color: var(--btn-bg-color);
+      }
+      button:hover {
+        background-color: var(--btn-bg-color-transparent);
+      }
+      dialog {
+        border: none;
+        padding: 2rem;
+        width: 300px;
+        text-align: center;
+      }
+      dialog button {
+        margin-top: 1rem;
+      }
+      .example {
+        padding: 2rem;
+        background-color: var(--card-background);
+        margin: 1rem 0;
+        border-radius: 0.5rem;
+      }
+      span.footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3rem;
+      }
+      span.footer a {
+        color: var(--highlight);
+      }
+      details {
+        padding: 0.4rem;
+        border: 1px solid var(--text-color);
+      }
+      details summary {
+        padding: 0.6rem;
+      }
+      details span {
+        padding-left: 1.6rem;
+        color: var(--highlight);
+        font-size: 1rem;
+      }
+      #data-lists {
+        padding: 0.4rem;
+        font-size: 1rem;
+      }
+      meter,
+      progress {
+        height: 1.4rem;
+        min-width: 120px;
+      }
+      kbd {
+        padding: 0.4rem;
+        background-color: var(--background-color);
+        font-size: 1rem;
+        border: 0.5px solid var(--text-color);
+        text-transform: uppercase;
+      }
+      /* Modes */
+      select {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.4rem;
+        font-size: 1rem;
+        outline: none;
+        color: var(--text-color);
+        background-color: var(--background-color);
+      }
+      body:has(option[value="dark"]:checked) {
+        --background-color: #222;
+        --card-background: #444;
+        --text-color: #fff;
+        --btn-bg-color: #ccc;
+        --btn-bg-color-transparent: #ccce;
+        --btn-color: #222;
+      }
+      body:has(option[value="contrast"]:checked) {
+        --background-color: #000;
+        --card-background: #222;
+        --text-color: #fff;
+        --btn-bg-color: #000;
+        --btn-bg-color-transparent: #111;
+        --btn-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Useful but less known HTML tags</h1>
+    <div id="mode">
+      <select name="mode" id="mode">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="contrast">Contrast</option>
+      </select>
+    </div>
+    <div class="tag">
+      <h2>Details and Summary</h2>
+      <span
+        >Creates an option where user can reveal and hide the details, usefull
+        in making FAQs.</span
+      >
+      <div class="example">
+        <details>
+          <summary>Q1. How will this tag help me?</summary>
+          <span>This will let you make FAQs in a better and faster way.</span>
+        </details>
+        <details>
+          <summary>Q2. Can I make this better with CSS?</summary>
+          <span>Ofcourse you can make it better in CSS, everthing can be.</span>
+        </details>
+      </div>
+    </div>
+
+    <div class="tag">
+      <h2>Fieldset Tag</h2>
+      <span>This creates a box around your content and give title to it.</span>
+      <div class="example">
+        <fieldset>
+          <legend>Submission Form</legend>
+          <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" />
+            <label for="email">Email</label>
+            <input type="email" id="email" />
+            <label for="password">Password</label>
+            <input type="password" id="password" />
+          </form>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="tag">
+      <h2>Datalist + Option tags</h2>
+      <span
+        >Specifies the list of pre-defined options and also allows you to
+        auto-complete them.</span
+      >
+      <div class="example">
+        <label for="data-lists">Select your favorite naruto character</label>
+        <input type="text" list="data-list" id="data-lists" />
+        <datalist id="data-list">
+          <option value="Naruto"></option>
+          <option value="Sasuke"></option>
+          <option value="Kakashi"></option>
+          <option value="Madara"></option>
+          <option value="Itachi"></option>
+        </datalist>
+      </div>
+    </div>
+
+    <div class="tag">
+      <h2>Dialog</h2>
+      <span
+        >This creates a dialog, which can be used for various purposes.</span
+      >
+      <div class="example">
+        <dialog id="dialog-box">
+          Hi, you are inside a dialog-box. To exit from here click on the close
+          button. <br />
+          <button onclick="document.querySelector('#dialog-box').close()">
+            Close
+          </button>
+        </dialog>
+        <button onclick="document.querySelector('#dialog-box').showModal()">
+          Click Me
+        </button>
+      </div>
+    </div>
+
+    <div class="tag">
+      <h2>Progress ans Meter Tags</h2>
+      <span
+        >These tags are useful to show the progress bar for
+        downloading/uploading or loading for something. The meter tag also adds
+        colours like red, yellow and green.</span
+      >
+      <div class="example">
+        <p>Progress loading</p>
+        <progress></progress><br />
+        <p>Progress percentage</p>
+        <progress value="78" max="100"></progress> <br />
+        <p>Meter - Low, High & Optimum</p>
+        <meter
+          value="27"
+          max="100"
+          min="0"
+          low="30"
+          high="60"
+          optimum="80"
+        ></meter>
+        <meter
+          value="54"
+          max="100"
+          min="0"
+          low="30"
+          high="60"
+          optimum="80"
+        ></meter>
+        <meter
+          value="89"
+          max="100"
+          min="0"
+          low="30"
+          high="60"
+          optimum="80"
+        ></meter>
+      </div>
+    </div>
+
+    <div class="tag">
+      <h2>KBD tag - Keyboard tag</h2>
+      <span
+        >The kbd tag is used for displaying keyboard keys on the screen.</span
+      >
+      <div class="example">
+        Use <kbd>ctrl</kbd> + <kbd>Shift</kbd> + <kbd>i</kbd> to open the
+        developer tools.
+      </div>
+    </div>
+
+    <span class="footer"
+      >&copy; Copyright 2024,&nbsp;
+      <a href="https://x.com/kamal_stark_" target="_blank"> Kamalveer Singh</a
+      >&nbsp;(Fair use)</span
+    >
+  </body>
+</html>
