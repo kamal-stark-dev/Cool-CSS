@@ -18,12 +18,10 @@
         display: flex;
         flex-direction: row;
       }
-      .container > div:nth-of-type(even),
-      .header > div:nth-of-type(even) {
+      .container > div:nth-of-type(even) {
         background-color: lightblue;
       }
-      .container > div:nth-of-type(odd),
-      .header > div:nth-of-type(odd) {
+      .container > div:nth-of-type(odd) {
         background-color: lightpink;
       }
 
@@ -37,6 +35,7 @@
       }
       .left {
         width: 140px;
+        text-align: center;
       }
       .middle {
         flex: 1;
@@ -46,13 +45,14 @@
       }
       .right {
         width: auto;
+        margin-right: 12px;
       }
 
       /* extras */
       .middle .search {
         display: flex;
         margin-top: 1rem;
-        height: 1.6rem;
+        height: 1.8rem;
       }
       .middle input {
         flex: 1;
@@ -60,6 +60,7 @@
       .middle button {
         padding: 0 0.6rem;
         font-size: 1.2rem;
+        margin-left: -2px;
       }
 
       .right ul {
@@ -73,6 +74,76 @@
       .right ul li i {
         font-size: 1.4rem;
       }
+
+      /* Post Styles */
+      .post {
+        display: flex;
+        margin: 0 auto;
+        width: 500px;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #bbb;
+      }
+      .post p {
+        margin: 0;
+      }
+      .profile {
+        width: 72px;
+        padding: 0.6rem;
+        /* background-color: lightblue; */
+      }
+      .profile img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .user-info {
+        /* background-color: lightpink; */
+        padding: 12px;
+      }
+      .user-details {
+        display: flex;
+        gap: 0.4rem;
+      }
+      .profile-name {
+        font-weight: bold;
+      }
+      .post-content {
+        margin-top: 8px;
+      }
+      .post-content > p {
+        margin-bottom: 12px;
+      }
+      .embed {
+        border: 1px solid #ccc;
+        display: flex;
+        border-radius: 1rem;
+      }
+      .preview {
+        width: 160px;
+        aspect-ratio: 1 / 1;
+        background-color: #ccc;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+      }
+      .embed-content {
+        padding: 1rem;
+      }
+      .embed-site-link {
+        color: #aaa;
+        padding-bottom: 8px;
+      }
+      /*
+      t0 = i * 1024
+      t1 = j * 32
+      t2 = k * 4
+      t3 = t0 + t1
+      t4 = t2 + t3
+      t5 = x[t4]
+      t5 = x[t2 + t3] = x[(k * 4) + (i * 1024) + (j * 32)]
+      t5 = x[1024i + 32j + 4k]
+      */
     </style>
   </head>
   <body>
@@ -222,6 +293,34 @@
           <li><i class="ri-grid-fill"></i></li>
           <li><i class="ri-notification-3-line"></i></li>
         </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 40px">Post with Embed</h3>
+    <div class="post">
+      <div class="profile">
+        <img
+          src="https://preview.redd.it/8iuo03tlxlt21.jpg?auto=webp&s=b212d0954e4ae1088b46cac788367744a844b33b"
+          alt="cool cat image"
+        />
+      </div>
+      <div class="user-info">
+        <div class="user-details">
+          <p class="profile-name">starky-dev</p>
+          <p class="user-id">@starky_dev</p>
+        </div>
+        <div class="post-content">
+          <p>
+            Flexbox have flexible layout whereas Grids have a rigid layout!!
+          </p>
+          <div class="embed">
+            <div class="preview"></div>
+            <div class="embed-content">
+              <p class="embed-site-link">youtube.com</p>
+              <p>Learn Flexbox in detail with real life usecases</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
