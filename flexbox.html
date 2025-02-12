@@ -134,16 +134,15 @@
         color: #aaa;
         padding-bottom: 8px;
       }
-      /*
-      t0 = i * 1024
-      t1 = j * 32
-      t2 = k * 4
-      t3 = t0 + t1
-      t4 = t2 + t3
-      t5 = x[t4]
-      t5 = x[t2 + t3] = x[(k * 4) + (i * 1024) + (j * 32)]
-      t5 = x[1024i + 32j + 4k]
-      */
+      /* Mobile Responsive */
+      @media (min-width: 426px) {
+        body {
+          padding: 2rem;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
     </style>
   </head>
   <body>

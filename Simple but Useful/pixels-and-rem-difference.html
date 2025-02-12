@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pixels & Rem Difference</title>
+    <style>
+      body {
+        background: #222;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #fff;
+      }
+      .pixels h1 {
+        font-size: 32px;
+      }
+      .pizels p {
+        font-size: 16px;
+      }
+      .rems h1 {
+        font-size: 2rem;
+      }
+      .rems p {
+        font-size: 1rem;
+      }
+      span {
+        background-color: #444;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pixels">
+      <h1>Heading with 32 pixels size.</h1>
+      <p>
+        Paragraph with 16 pixels font-size. This is just some demo text to make
+        the paragraph look bigger.
+      </p>
+    </div>
+
+    <div class="rems">
+      <h1>Heading with 32 pixels size.</h1>
+      <p>
+        Paragraph with 16 pixels font-size. This is just some demo text to make
+        the paragraph look bigger.
+      </p>
+    </div>
+    <span>
+      Go to browser settings and change the font-size to let's say 24px (or
+      large)
+    </span>
+
+    <!-- The rem one will dynamically adjust it's size on your preference whether
+      the pixel one will remain static. -->
+
+    <!-- pixel -> absolute unit | rem -> relative unit -->
+
+    <!-- For the same reason you need to use rem in width, height, margin and padding etc. -->
+  </body>
+</html>

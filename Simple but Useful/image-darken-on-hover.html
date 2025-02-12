@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Darken on Hover</title>
+    <style>
+      .image-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .image {
+        display: block;
+        transition: opacity 0.3s ease;
+      }
+
+      .image-container:hover .image {
+        opacity: 0.8;
+      }
+
+      .image-container:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .image-container:hover:after {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image-container">
+      <img
+        src="https://i.iheart.com/v3/url/aHR0cHM6Ly9tZWdhcGhvbmUuaW1naXgubmV0L3BvZGNhc3RzLzA0MmU2MTQ0LTcyNWUtMTFlYy1hNzVkLWMzOGY3MDJhZWNhZC9pbWFnZS9IdWJlcm1hbi1MYWItUG9kY2FzdC1UaHVtYm5haWwtMzAwMHgzMDAwLnBuZz9peGxpYj1yYWlscy00LjMuMSZtYXgtdz0zMDAwJm1heC1oPTMwMDAmZml0PWNyb3AmYXV0bz1mb3JtYXQsY29tcHJlc3M?ops=fit(480%2C480)"
+        alt="Image Description"
+        class="image"
+      />
+    </div>
+  </body>
+</html>
