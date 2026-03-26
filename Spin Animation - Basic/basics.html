@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Spin Animation</title>
+
+    <!-- CSS -->
+    <style>
+      body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #111;
+        height: 100vh;
+      }
+
+      .block {
+        width: 200px;
+        aspect-ratio: 1 / 1;
+        background-color: #89bd9e;
+
+        animation-name: spin;
+        animation-duration: 2.5s;
+        animation-timing-function: ease-in-out;
+        animation-delay: 1s;
+        animation-iteration-count: 3;
+        animation-direction: alternate;
+        animation-fill-mode: forwards;
+      }
+      /* animation: 2.5s spin ease-in-out 1s 3 alternate; */
+
+      @keyframes spin {
+        0% {
+        }
+        50% {
+          scale: 1.5;
+        }
+        100% {
+          transform: rotate(360deg);
+          border-radius: 50%;
+          background-color: #f0c987;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Learning CSS Animation -->
+    <!-- <img class="image" src="./luffy.png" alt="luffy image" /> -->
+    <div class="block"></div>
+  </body>
+</html>
