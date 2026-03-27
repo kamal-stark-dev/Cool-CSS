@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flip Animation</title>
+
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #111;
+      }
+
+      .wrapper {
+        position: relative;
+      }
+
+      .scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        perspective: 1000px;
+      }
+
+      .ace-image {
+        height: 600px;
+      }
+
+      .box {
+        width: 104px;
+        aspect-ratio: 1 / 1;
+        position: absolute;
+
+        transform-style: preserve-3d;
+        transform-origin: center center;
+      }
+
+      .box.one {
+        top: 55px;
+        left: 200px;
+        animation: flip-1 1.2s ease-in-out infinite alternate;
+      }
+
+      .box.two {
+        top: 70px;
+        left: 325px;
+        animation: flip-2 1.2s ease-in-out infinite alternate;
+      }
+
+      .face {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-radius: 50%;
+        backface-visibility: hidden;
+      }
+
+      .face img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+
+      .front {
+        background-color: lightblue;
+      }
+
+      .back {
+        background-color: lightpink;
+        transform: rotateX(180deg);
+      }
+
+      @keyframes flip-1 {
+        0% {
+          transform: rotateX(0) translateZ(1px);
+        }
+        100% {
+          transform: rotateX(180deg) translateZ(1px);
+        }
+      }
+
+      @keyframes flip-2 {
+        0% {
+          transform: rotateX(0);
+        }
+        100% {
+          transform: rotateX(-180deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <img
+        class="ace-image"
+        src="./assets/ace-with-hat.jpg"
+        alt="ace-with-hat"
+      />
+
+      <div class="scene">
+        <div class="box one">
+          <div class="face back">
+            <img src="./assets/smile-face.jpg" alt="smile" />
+          </div>
+          <div class="face front">
+            <img src="./assets/sad-face.jpg" alt="smile" />
+          </div>
+        </div>
+
+        <div class="box two">
+          <div class="face back">
+            <img src="./assets/sad-face.jpg" alt="smile" />
+          </div>
+          <div class="face front">
+            <img src="./assets/smile-face.jpg" alt="smile" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
