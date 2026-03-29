@@ -15,3 +15,7 @@ body {
   height: 100vh;
   padding-top: 2rem;
 }
+
+hr {
+  width: 90%;
+}

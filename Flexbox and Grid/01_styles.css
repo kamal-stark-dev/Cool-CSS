@@ -6,6 +6,7 @@ main {
   gap: 1rem;
 }
 
+/* 1 */
 .navbar {
   list-style: none;
   gap: 1.5rem;
@@ -34,4 +35,87 @@ main {
 
 .navbar li:hover {
   text-decoration: underline;
+}
+
+/* 2 */
+.grid-container.one {
+  width: 800px;
+  height: 250px;
+
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar main";
+}
+
+.grid-container div {
+  padding: 0.5rem;
+}
+
+.grid-container .one {
+  grid-area: navbar;
+  background-color: #fd7979;
+}
+
+.grid-container .two {
+  grid-area: sidebar;
+  background-color: #fdacac;
+}
+
+.grid-container .three {
+  grid-area: main;
+  background-color: #ffcdc9;
+}
+
+.grid-container.two {
+  width: 800px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-areas:
+    "one two three"
+    "one four four"
+    "five five six"
+    "five five seven";
+  gap: 0.5rem;
+}
+
+.grid-container.two div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #aac4f5; */
+}
+
+/* Assign areas */
+.card:nth-child(1) {
+  grid-area: one;
+  background-color: #ffd6ff;
+}
+.card:nth-child(2) {
+  grid-area: two;
+  background-color: #e7c6ff;
+}
+.card:nth-child(3) {
+  grid-area: three;
+  background-color: #c8b6ff;
+}
+.card:nth-child(4) {
+  grid-area: four;
+  background-color: #b8c0ff;
+}
+.card:nth-child(5) {
+  grid-area: five;
+  background-color: #bbd0ff;
+}
+.card:nth-child(6) {
+  grid-area: six;
+  background-color: #e7c6ff;
+}
+.card:nth-child(7) {
+  grid-area: seven;
+  background-color: #ffd6ff;
 }
