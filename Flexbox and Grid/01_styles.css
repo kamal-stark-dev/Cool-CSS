@@ -1,0 +1,37 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.navbar {
+  list-style: none;
+  gap: 1.5rem;
+  border: 2px solid #111;
+  width: 800px;
+  padding: 1rem 2rem;
+  background-color: #111;
+  color: white;
+
+  display: flex;
+}
+
+/* Note: in flexbox an 'auto' margin absorbs all space. */
+.navbar.one li:first-child {
+  margin-right: auto;
+}
+
+.navbar.two li:nth-child(3) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar li {
+  transition: 2s;
+}
+
+.navbar li:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    Roboto,
+    Ubuntu,
+    sans-serif;
+  background-color: #fcf8f8;
+  height: 100vh;
+  padding-top: 2rem;
+}
