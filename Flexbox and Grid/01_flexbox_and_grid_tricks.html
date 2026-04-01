@@ -12,7 +12,7 @@
       <h1>Flexbox and Grid Tricks</h1>
 
       <hr />
-      <h2>1. Isolating elements in a Flexbox.</h2>
+      <h2>1. Isolating elements in a Flexbox (margin: auto)</h2>
       <ul class="navbar one">
         <li>Home</li>
         <li>Products</li>
@@ -48,6 +48,73 @@
         <div class="card">6</div>
         <div class="card">7</div>
       </div>
+
+      <hr />
+      <h2>3. Inceasing an element's clickable area (flex-grow: 1)</h2>
+
+      <div class="radio-container">
+        <ul class="radio">
+          <li><strong>Without `flex-grow`:</strong></li>
+          <li>
+            <input type="checkbox" id="item-1" /><label for="item-1"
+              >Small Item</label
+            >
+          </li>
+          <li>
+            <input type="checkbox" id="item-2" /><label for="item-2"
+              >Long Name Item</label
+            >
+          </li>
+          <li>
+            <input type="checkbox" id="item-3" /><label for="item-3"
+              >Really Long Name Item</label
+            >
+          </li>
+          <li>
+            <input type="checkbox" id="item-4" /><label for="item-4"
+              >Item</label
+            >
+          </li>
+          <li>
+            <input type="checkbox" id="item-5" /><label for="item-5"
+              >Medium Item</label
+            >
+          </li>
+        </ul>
+
+        <ul class="radio fixed">
+          <li><strong>With `flex-grow`:</strong></li>
+          <li>
+            <input type="checkbox" id="f-item-1" /><label for="f-item-1"
+              >Small Item</label
+            >
+          </li>
+          <li>
+            <input type="checkbox" id="f-item-2" /><label for="f-item-2"
+              >Long Name Item</label
+            >
+          </li>
+          <li>
+            <input type="checkbox" id="f-item-3" /><label for="f-item-3"
+              >Really Long Name Item</label
+            >
+          </li>
+          <li>
+            <input type="checkbox" id="f-item-4" /><label for="f-item-4"
+              >Item</label
+            >
+          </li>
+          <li>
+            <input type="checkbox" id="f-item-5" /><label for="f-item-5"
+              >Medium Item</label
+            >
+          </li>
+        </ul>
+      </div>
+
+      <hr />
+
+      <div class="space" style="margin-bottom: 400px"></div>
     </main>
   </body>
 </html>

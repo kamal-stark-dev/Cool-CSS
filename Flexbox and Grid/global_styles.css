@@ -19,3 +19,7 @@ body {
 hr {
   width: 90%;
 }
+
+ul {
+  list-style: none;
+}

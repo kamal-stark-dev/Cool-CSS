@@ -8,7 +8,6 @@ main {
 
 /* 1 */
 .navbar {
-  list-style: none;
   gap: 1.5rem;
   border: 2px solid #111;
   width: 800px;
@@ -118,4 +117,53 @@ main {
 .card:nth-child(7) {
   grid-area: seven;
   background-color: #ffd6ff;
+}
+
+/* 3 */
+
+.radio-container {
+  display: flex;
+  width: 800px;
+  gap: 1rem;
+}
+
+.radio {
+  width: 400px;
+  padding: 0.6rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  user-select: none;
+}
+
+.radio li {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #fdacac;
+}
+
+.radio.fixed li {
+  background-color: #b8c0ff;
+}
+
+input[type="checkbox"] {
+  height: 16px;
+  width: 16px;
+  background-color: #eee;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.radio input {
+  margin-right: 0.4rem;
+}
+
+.radio.fixed label {
+  flex-grow: 1;
 }
