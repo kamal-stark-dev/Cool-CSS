@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magnifying Effect</title>
+
+    <style>
+      body {
+        font-family: monospace, Helvetica, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+        background-color: #222;
+        color: thistle;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 0 400px;
+      }
+
+      .controls {
+        margin-bottom: 20px;
+      }
+
+      input {
+        margin: 5px;
+      }
+
+      .img-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .img-magnifier-glass {
+        position: absolute;
+        border: 2px solid black;
+        border-radius: 50%;
+        cursor: none;
+      }
+
+      img {
+        width: 500px;
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h4>Ceiling of Cathedral of St. Michael and St. Gudula</h4>
+
+    <div class="container">
+      <div class="img-container">
+        <img
+          id="myImage"
+          src="./assets/images/high-res-image.jpg"
+          alt="Ceiling"
+        />
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <label>
+          Glass Size:
+          <input type="range" id="sizeInput" min="50" max="300" value="160" />
+        </label>
+        <span id="sizeValue">160</span>px
+        <br />
+
+        <label>
+          Zoom Level:
+          <input
+            type="range"
+            id="zoomInput"
+            min="1"
+            max="5"
+            step="0.1"
+            value="2.5"
+          />
+        </label>
+        <span id="zoomValue">2.5</span>x
+      </div>
+    </div>
+
+    <script>
+      let currentGlass = null;
+
+      function magnify(imgID, zoom, glassSize) {
+        const img = document.getElementById(imgID);
+
+        // remove old glass if exists
+        if (currentGlass) currentGlass.remove();
+
+        const glass = document.createElement("div");
+        glass.setAttribute("class", "img-magnifier-glass");
+
+        glass.style.width = glassSize + "px";
+        glass.style.height = glassSize + "px";
+
+        img.parentElement.insertBefore(glass, img);
+        currentGlass = glass;
+
+        glass.style.backgroundImage = `url(${img.src})`;
+        glass.style.backgroundRepeat = "no-repeat";
+        glass.style.backgroundSize =
+          img.width * zoom + "px " + img.height * zoom + "px";
+
+        const bw = 3;
+        const w = glass.offsetWidth / 2;
+        const h = glass.offsetHeight / 2;
+
+        function moveMagnifier(e) {
+          e.preventDefault();
+
+          const pos = getCursorPos(e);
+          let x = pos.x;
+          let y = pos.y;
+
+          if (x > img.width - w / zoom) x = img.width - w / zoom;
+          if (x < w / zoom) x = w / zoom;
+          if (y > img.height - h / zoom) y = img.height - h / zoom;
+          if (y < h / zoom) y = h / zoom;
+
+          glass.style.left = x - w + "px";
+          glass.style.top = y - h + "px";
+
+          glass.style.backgroundPosition =
+            "-" + (x * zoom - w + bw) + "px -" + (y * zoom - h + bw) + "px";
+        }
+
+        function getCursorPos(e) {
+          const a = img.getBoundingClientRect();
+          let x = e.pageX - a.left;
+          let y = e.pageY - a.top;
+
+          x -= window.pageXOffset;
+          y -= window.pageYOffset;
+
+          return { x, y };
+        }
+
+        glass.addEventListener("mousemove", moveMagnifier);
+        img.addEventListener("mousemove", moveMagnifier);
+        glass.addEventListener("touchmove", moveMagnifier);
+        img.addEventListener("touchmove", moveMagnifier);
+      }
+
+      function updateMagnifier() {
+        const size = parseInt(document.getElementById("sizeInput").value);
+        const zoom = parseFloat(document.getElementById("zoomInput").value);
+
+        document.getElementById("sizeValue").textContent = size;
+        document.getElementById("zoomValue").textContent = zoom;
+
+        magnify("myImage", zoom, size);
+      }
+
+      // initial load
+      window.onload = updateMagnifier;
+
+      // listeners
+      document
+        .getElementById("sizeInput")
+        .addEventListener("input", updateMagnifier);
+      document
+        .getElementById("zoomInput")
+        .addEventListener("input", updateMagnifier);
+    </script>
+  </body>
+</html>
