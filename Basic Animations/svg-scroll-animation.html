@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG Scroll Animation</title>
+
+    <style>
+      body {
+        background-color: #111;
+        color: white;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .svg-section {
+        padding-top: 45rem;
+        padding-bottom: 45rem;
+      }
+
+      svg {
+        width: 300px;
+        overflow: visible;
+      }
+
+      circle {
+        fill: #fe218b;
+        transform-origin: center;
+        animation: scaleUp linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 75%;
+      }
+
+      @keyframes scaleUp {
+        from {
+          transform: scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1.5);
+          opacity: 1;
+        }
+      }
+
+      polygon {
+        fill: #fed700;
+        animation: slideIn linear both;
+        animation-timeline: view();
+        animation-range: entry 20% cover 70%;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(-150px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .square {
+        fill: #21b0fe;
+        animation: rotateBox linear both;
+        transform-origin: center;
+        animation-timeline: view();
+        animation-range: entry 10% cover 75%;
+      }
+
+      @keyframes rotateBox {
+        from {
+          transform: rotate(-180deg) scale(0.5);
+          opacity: 0;
+        }
+        to {
+          transform: rotate(0deg) scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h1>SVG Scroll Animation</h1>
+      <p>Scroll down to see the animation 👇</p>
+    </section>
+
+    <section class="svg-section">
+      <svg viewbox="0 0 200 200">
+        <circle cx="50" cy="100" r="20" />
+        <polygon points="95,45 125,95 65,95" fill="lime" />
+        <rect class="square" x="135" y="80" width="50" height="50" />
+      </svg>
+    </section>
+
+    <section class="end">
+      <h2>Animation Complete 🚀</h2>
+    </section>
+  </body>
+</html>
