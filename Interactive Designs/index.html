@@ -44,7 +44,7 @@
       }
 
       .dashed {
-        stroke:rgba(115, 130, 164, 0.8);
+        stroke:rgba(96, 124, 88, 0.8);
         stroke-width: 1;
         stroke-dashoffset: 5;
         stroke-dasharray: 7;
@@ -54,10 +54,19 @@
       }
 
       .is-sliding {
-        stroke: #99d98c;
+        stroke: #F8DE22;
         stroke-width: 1.5;
         stroke-dasharray: 0;
-        filter: drop-shadow(0 0 3px #99d98cc0);
+        filter: drop-shadow(0 0 3px #F8DE22);
+      }
+
+      .point-text {
+        font-family: Arial, Helvetica, sans-serif;
+        fill: #F8DE22;
+        stroke: black;
+        stroke-width: 3;
+        paint-order: stroke;
+        font-weight: bold;
       }
     </style>
   </head>
@@ -75,6 +84,7 @@
         <rect width="100%" height="100%" fill="url(#gridPattern)" />
 
         <!-- dashed lines -->
+        <text id="text-x1" x="20" y="95" class="point-text">x1</text>
         <line
           id="dashed-x1"
           class="dashed"
@@ -83,6 +93,8 @@
           x2="50"
           y2="80"
         />
+
+        <text id="text-y1" x="55" y="45" class="point-text">y1</text>
         <line
           id="dashed-y1"
           class="dashed"
@@ -91,6 +103,8 @@
           x2="50"
           y2="80"
         />
+
+        <text id="text-x2" x="105" y="315" class="point-text">x2</text>
         <line
           id="dashed-x2"
           class="dashed"
@@ -99,6 +113,8 @@
           x2="220"
           y2="300"
         />
+
+        <text id="text-y2" x="225" y="155" class="point-text">y2</text>
         <line
           id="dashed-y2"
           class="dashed"
@@ -115,13 +131,13 @@
           y1="80"
           x2="220"
           y2="300"
-          stroke="#c8b6ff"
-          stroke-width="2"
+          stroke="#ff006e"
+          stroke-width="3"
         />
 
         <!-- points -->
-        <circle id="point-1" cx="50" cy="80" r="4" fill="#4cc9f0" />
-        <circle id="point-2" cx="220" cy="300" r="4" fill="#4cc9f0" />
+        <circle id="point-1" cx="50" cy="80" r="4" fill="#fb5607" />
+        <circle id="point-2" cx="220" cy="300" r="4" fill="#fb5607" />
       </svg>
 
       <audio
@@ -205,8 +221,15 @@
       const dashed_2_x = document.getElementById("dashed-x2");
       const dashed_2_y = document.getElementById("dashed-y2");
 
+      // dashed lines texts
+      const text_x1 = document.getElementById("text-x1");
+      const text_y1 = document.getElementById("text-y1");
+      const text_x2 = document.getElementById("text-x2");
+      const text_y2 = document.getElementById("text-y2");
+
       // tick sound
       const tick = document.getElementById("tickSound");
+      tick.volume = 0.4;
 
       function handleSliderChange(id, value) {
         // tick sound
@@ -236,18 +259,31 @@
           dashed_1_x.setAttribute("x2", value);
           dashed_1_y.setAttribute("x1", value);
           dashed_1_y.setAttribute("x2", value);
+
+          // '+' converts string into a number
+          text_x1.setAttribute("x", +value / 2 - 5);
+          text_y1.setAttribute("x", +value + 5);
         } else if (id === "y1") {
           dashed_1_y.setAttribute("y2", value);
           dashed_1_x.setAttribute("y1", value);
           dashed_1_x.setAttribute("y2", value);
+
+          text_x1.setAttribute("y", +value + 15);
+          text_y1.setAttribute("y", +value / 2 - 5);
         } else if (id === "x2") {
           dashed_2_x.setAttribute("x2", value);
           dashed_2_y.setAttribute("x1", value);
           dashed_2_y.setAttribute("x2", value);
+
+          text_x2.setAttribute("x", +value / 2 - 5);
+          text_y2.setAttribute("x", +value + 5);
         } else if (id === "y2") {
           dashed_2_y.setAttribute("y2", value);
           dashed_2_x.setAttribute("y1", value);
           dashed_2_x.setAttribute("y2", value);
+
+          text_x2.setAttribute("y", +value + 15);
+          text_y2.setAttribute("y", +value / 2 - 5);
         }
       }
 
@@ -274,12 +310,19 @@
         });
 
         slider.addEventListener("mousedown", event => {
-          const {id, value} = event.target;
-          activeStyle(id);
+          activeStyle(event.target.id);
+        });
+        slider.addEventListener("keydown", event => { // for arrow keys usage
+          activeStyle(event.target.id);
+        });
+        slider.addEventListener("focus", event => { // for keyboard in
+          activeStyle(event.target.id);
         });
         slider.addEventListener("mouseup", event => {
-          const {id, value} = event.target;
-          defaultStyle(id);
+          defaultStyle(event.target.id);
+        });
+        slider.addEventListener("blur", event => { // for keyboard out
+          defaultStyle(event.target.id);
         });
       });
     </script>
