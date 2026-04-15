@@ -1,16 +1,45 @@
 <!doctype html>
 <html>
   <head>
-    <title>Lines go brrr...</title>
+    <title>Lines go brr...</title>
+    <!-- TODO: add same point explosion effect like Josh Comeau -->
+    <!-- TODO: add a settings option where you can change the ranges, the grid, the colors etc. (full customization mode) -->
 
     <style>
+      :root {
+        --highlight: #ff006e;
+        --primary: #f8de22;
+        --secondary: #fb5607;
+        --dashed-color: #66634d;
+
+        --background: #0f172a;
+        --svg-background: #1e293b;
+        --svg-border: #ddd;
+        --text-main: #f8fafc;
+        --grid-line: gray;
+      }
+
+      /* 2nd color theme */
+      /* :root {
+        --highlight: #ff477e;
+        --primary: #7b2cbf;
+        --secondary: #ff9f1c;
+        --dashed-color: #adb5bd;
+
+        --background: #0d1b2a;
+        --svg-background: #1b263b;
+        --svg-border: #415a77;
+        --text-main: #e0e1dd;
+        --grid-line: #555;
+      } */
+
       body {
-        background-color: #111;
+        background-color: var(--background);
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
-        color: white;
+        color: var(--text-main);
         font-family: "Courier New", Courier, monospace;
       }
 
@@ -27,6 +56,7 @@
         grid-template-columns: repeat(2, 1fr);
         column-gap: 2rem;
         row-gap: 0.4rem;
+        font-weight: 600;
       }
 
       .label {
@@ -39,45 +69,108 @@
       }
 
       svg {
-        background-color: #222;
-        border: 1px solid rgb(190, 190, 190);
+        background-color: var(--svg-background);
+        border: 1px solid var(--svg-border);
+      }
+
+      .main-line {
+        stroke: var(--highlight);
+        stroke-width: 3;
+      }
+
+      .point {
+        r: 4;
+        fill: var(--secondary);
+      }
+
+      #gridPattern {
+        stroke: var(--grid-line);
       }
 
       .dashed {
-        stroke:rgba(96, 124, 88, 0.8);
+        stroke: var(--dashed-color);
         stroke-width: 1;
         stroke-dashoffset: 5;
         stroke-dasharray: 7;
         transition:
-            stroke 0.4s ease-in-out,
-            stroke-width 0.4s ease-in-out;
+          stroke 0.4s ease-in-out,
+          stroke-width 0.4s ease-in-out;
       }
 
       .is-sliding {
-        stroke: #F8DE22;
+        stroke: var(--primary);
         stroke-width: 1.5;
         stroke-dasharray: 0;
-        filter: drop-shadow(0 0 3px #F8DE22);
+        filter: drop-shadow(0 0 3px var(--primary));
       }
 
       .point-text {
         font-family: Arial, Helvetica, sans-serif;
-        fill: #F8DE22;
-        stroke: black;
+        fill: var(--primary);
+        stroke: var(--background);
         stroke-width: 3;
         paint-order: stroke;
         font-weight: bold;
+      }
+
+      .coord-slider {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 100%;
+        background-color: transparent;
+        cursor: pointer;
+      }
+
+      .coord-slider::-webkit-slider-runnable-track {
+        height: 4px;
+        background-color: var(--primary);
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      .coord-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 22px;
+        width: 22px;
+        background-color: var(--highlight);
+        border-radius: 30px;
+        border: 3px solid var(--background);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: -9px;
+      }
+
+      /* --- Firefox --- */
+      .coord-slider::-moz-range-track {
+        height: 4px;
+        background: var(--primary);
+        border-radius: 10px;
+        border: 0px solid var(--background);
+        box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      .coord-slider::-moz-range-thumb {
+        height: 28px;
+        width: 28px;
+        background: var(--highlight);
+        border-radius: 30px;
+        border: 1px solid var(--background);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       }
     </style>
   </head>
   <body>
     <div class="container">
       <svg width="400" height="400">
-
         <defs>
-          <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+          <pattern
+            id="gridPattern"
+            width="20"
+            height="20"
+            patternUnits="userSpaceOnUse"
+          >
             <!-- M = Move to (20,0), L = Line to (0,0) and then (0,20) -->
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="gray" stroke-width="0.5""")/>>
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke-width="0.5" />
           </pattern>
         </defs>
 
@@ -85,59 +178,23 @@
 
         <!-- dashed lines -->
         <text id="text-x1" x="20" y="95" class="point-text">x1</text>
-        <line
-          id="dashed-x1"
-          class="dashed"
-          x1="0"
-          y1="80"
-          x2="50"
-          y2="80"
-        />
+        <line id="dashed-x1" class="dashed" x1="0" y1="80" x2="50" y2="80" />
 
         <text id="text-y1" x="55" y="45" class="point-text">y1</text>
-        <line
-          id="dashed-y1"
-          class="dashed"
-          x1="50"
-          y1="0"
-          x2="50"
-          y2="80"
-        />
+        <line id="dashed-y1" class="dashed" x1="50" y1="0" x2="50" y2="80" />
 
         <text id="text-x2" x="105" y="315" class="point-text">x2</text>
-        <line
-          id="dashed-x2"
-          class="dashed"
-          x1="0"
-          y1="300"
-          x2="220"
-          y2="300"
-        />
+        <line id="dashed-x2" class="dashed" x1="0" y1="300" x2="220" y2="300" />
 
         <text id="text-y2" x="225" y="155" class="point-text">y2</text>
-        <line
-          id="dashed-y2"
-          class="dashed"
-          x1="220"
-          y1="0"
-          x2="220"
-          y2="300"
-        />
+        <line id="dashed-y2" class="dashed" x1="220" y1="0" x2="220" y2="300" />
 
         <!-- main line -->
-        <line
-          id="line"
-          x1="50"
-          y1="80"
-          x2="220"
-          y2="300"
-          stroke="#ff006e"
-          stroke-width="3"
-        />
+        <line id="line" x1="50" y1="80" x2="220" y2="300" class="main-line" />
 
         <!-- points -->
-        <circle id="point-1" cx="50" cy="80" r="4" fill="#fb5607" />
-        <circle id="point-2" cx="220" cy="300" r="4" fill="#fb5607" />
+        <circle class="point" id="point-1" cx="50" cy="80" />
+        <circle class="point" id="point-2" cx="220" cy="300" />
       </svg>
 
       <audio
@@ -148,9 +205,7 @@
 
       <div class="sliders">
         <label>
-          <div class="label">
-            X1 <span id="x1-label">50</span>
-          </div>
+          <div class="label">X1 <span id="x1-label">50</span></div>
           <input
             type="range"
             id="x1"
@@ -162,9 +217,7 @@
           />
         </label>
         <label>
-          <div class="label">
-            Y1 <span id="y1-label">80</span>
-          </div>
+          <div class="label">Y1 <span id="y1-label">80</span></div>
           <input
             type="range"
             id="y1"
@@ -176,9 +229,7 @@
           />
         </label>
         <label>
-          <div class="label">
-            X2 <span id="x2-label">220</span>
-          </div>
+          <div class="label">X2 <span id="x2-label">220</span></div>
           <input
             type="range"
             id="x2"
@@ -190,9 +241,7 @@
           />
         </label>
         <label>
-          <div class="label">
-            Y2 <span id="y2-label">300</span>
-          </div>
+          <div class="label">Y2 <span id="y2-label">300</span></div>
           <input
             type="range"
             id="y2"
@@ -205,7 +254,6 @@
         </label>
       </div>
     </div>
-
 
     <script>
       // main line
@@ -295,7 +343,7 @@
 
       function defaultStyle(id) {
         const active_line = document.getElementById(`dashed-${id}`);
-          active_line.classList.remove("is-sliding");
+        active_line.classList.remove("is-sliding");
       }
 
       const sliders = document.querySelectorAll(".coord-slider");
@@ -309,19 +357,22 @@
           handleDashedLines(id, value);
         });
 
-        slider.addEventListener("mousedown", event => {
+        slider.addEventListener("mousedown", (event) => {
           activeStyle(event.target.id);
         });
-        slider.addEventListener("keydown", event => { // for arrow keys usage
+        slider.addEventListener("keydown", (event) => {
+          // for arrow keys usage
           activeStyle(event.target.id);
         });
-        slider.addEventListener("focus", event => { // for keyboard in
+        slider.addEventListener("focus", (event) => {
+          // for keyboard in
           activeStyle(event.target.id);
         });
-        slider.addEventListener("mouseup", event => {
+        slider.addEventListener("mouseup", (event) => {
           defaultStyle(event.target.id);
         });
-        slider.addEventListener("blur", event => { // for keyboard out
+        slider.addEventListener("blur", (event) => {
+          // for keyboard out
           defaultStyle(event.target.id);
         });
       });
