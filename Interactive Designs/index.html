@@ -25,62 +25,87 @@
       .sliders {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        column-gap: 1rem;
+        column-gap: 2rem;
         row-gap: 0.4rem;
       }
 
+      .label {
+        display: flex;
+        justify-content: space-between;
+      }
+
       input[type="range"] {
-        width: 160px;
+        width: 180px;
       }
 
       svg {
         background-color: #222;
+        border: 1px solid rgb(190, 190, 190);
+      }
+
+      .dashed {
+        stroke:rgba(115, 130, 164, 0.8);
+        stroke-width: 1;
+        stroke-dashoffset: 5;
+        stroke-dasharray: 7;
+        transition:
+            stroke 0.4s ease-in-out,
+            stroke-width 0.4s ease-in-out;
+      }
+
+      .is-sliding {
+        stroke: #99d98c;
+        stroke-width: 1.5;
+        stroke-dasharray: 0;
+        filter: drop-shadow(0 0 3px #99d98cc0);
       }
     </style>
   </head>
   <body>
     <div class="container">
       <svg width="400" height="400">
+
+        <defs>
+          <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+            <!-- M = Move to (20,0), L = Line to (0,0) and then (0,20) -->
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="gray" stroke-width="0.5""")/>>
+          </pattern>
+        </defs>
+
+        <rect width="100%" height="100%" fill="url(#gridPattern)" />
+
         <!-- dashed lines -->
         <line
-          id="dashed-1-x"
+          id="dashed-x1"
+          class="dashed"
           x1="0"
           y1="80"
           x2="50"
           y2="80"
-          stroke="lightblue"
-          stroke-width="1"
-          stroke-dasharray="7, 5"
         />
         <line
-          id="dashed-1-y"
+          id="dashed-y1"
+          class="dashed"
           x1="50"
           y1="0"
           x2="50"
           y2="80"
-          stroke="lightblue"
-          stroke-width="1"
-          stroke-dasharray="7, 5"
         />
         <line
-          id="dashed-2-x"
+          id="dashed-x2"
+          class="dashed"
           x1="0"
           y1="300"
           x2="220"
           y2="300"
-          stroke="lightblue"
-          stroke-width="1"
-          stroke-dasharray="7, 5"
         />
         <line
-          id="dashed-2-y"
+          id="dashed-y2"
+          class="dashed"
           x1="220"
           y1="0"
           x2="220"
           y2="300"
-          stroke="lightblue"
-          stroke-width="1"
-          stroke-dasharray="7, 5"
         />
 
         <!-- main line -->
@@ -90,13 +115,13 @@
           y1="80"
           x2="220"
           y2="300"
-          stroke="oklch(0.9 0.3 164)"
+          stroke="#c8b6ff"
           stroke-width="2"
         />
 
         <!-- points -->
-        <circle id="point-1" cx="50" cy="80" r="4" fill="green" />
-        <circle id="point-2" cx="220" cy="300" r="4" fill="green" />
+        <circle id="point-1" cx="50" cy="80" r="4" fill="#4cc9f0" />
+        <circle id="point-2" cx="220" cy="300" r="4" fill="#4cc9f0" />
       </svg>
 
       <audio
@@ -107,51 +132,64 @@
 
       <div class="sliders">
         <label>
-          X1
+          <div class="label">
+            X1 <span id="x1-label">50</span>
+          </div>
           <input
             type="range"
             id="x1"
             value="50"
             min="0"
             max="400"
+            step="10"
             class="coord-slider"
           />
         </label>
         <label>
-          Y1
+          <div class="label">
+            Y1 <span id="y1-label">80</span>
+          </div>
           <input
             type="range"
             id="y1"
             value="80"
             min="0"
             max="400"
+            step="10"
             class="coord-slider"
           />
         </label>
         <label>
-          X2
+          <div class="label">
+            X2 <span id="x2-label">220</span>
+          </div>
           <input
             type="range"
             id="x2"
             value="220"
             min="0"
             max="400"
+            step="10"
             class="coord-slider"
           />
         </label>
         <label>
-          Y2
+          <div class="label">
+            Y2 <span id="y2-label">300</span>
+          </div>
           <input
             type="range"
             id="y2"
             value="300"
             min="0"
             max="400"
+            step="10"
             class="coord-slider"
           />
         </label>
       </div>
     </div>
+
 
     <script>
       // main line
@@ -162,23 +200,22 @@
       const point2 = document.getElementById("point-2");
 
       // dashed lines
-      const dashed_1_x = document.getElementById("dashed-1-x");
-      const dashed_1_y = document.getElementById("dashed-1-y");
-      const dashed_2_x = document.getElementById("dashed-2-x");
-      const dashed_2_y = document.getElementById("dashed-2-y");
+      const dashed_1_x = document.getElementById("dashed-x1");
+      const dashed_1_y = document.getElementById("dashed-y1");
+      const dashed_2_x = document.getElementById("dashed-x2");
+      const dashed_2_y = document.getElementById("dashed-y2");
 
       // tick sound
       const tick = document.getElementById("tickSound");
-      const tickThreshold = 10;
-      const lastTickedValue = { x1: 0, x2: 0, y1: 0, y2: 0 };
 
       function handleSliderChange(id, value) {
         // tick sound
-        if (Math.abs(Number(value) - lastTickedValue[id]) >= tickThreshold) {
-          tick.currentTime = 0;
-          tick.play();
-          lastTickedValue[id] = Number(value);
-        }
+        tick.currentTime = 0;
+        tick.play();
+
+        // change the label
+        document.getElementById(`${id}-label`).innerText = value;
+
         line.setAttribute(id, value);
       }
 
@@ -214,13 +251,35 @@
         }
       }
 
-      document.querySelectorAll(".coord-slider").forEach((slider) => {
+      // handling the active and default state for dashed line
+      function activeStyle(id) {
+        const active_line = document.getElementById(`dashed-${id}`);
+        active_line.classList.add("is-sliding");
+      }
+
+      function defaultStyle(id) {
+        const active_line = document.getElementById(`dashed-${id}`);
+          active_line.classList.remove("is-sliding");
+      }
+
+      const sliders = document.querySelectorAll(".coord-slider");
+
+      sliders.forEach((slider) => {
         slider.addEventListener("input", (event) => {
           const { id, value } = event.target; // ex: "x1", 170
 
-          handlePointChange(id, value);
           handleSliderChange(id, value);
+          handlePointChange(id, value);
           handleDashedLines(id, value);
+        });
+
+        slider.addEventListener("mousedown", event => {
+          const {id, value} = event.target;
+          activeStyle(id);
+        });
+        slider.addEventListener("mouseup", event => {
+          const {id, value} = event.target;
+          defaultStyle(id);
         });
       });
     </script>
