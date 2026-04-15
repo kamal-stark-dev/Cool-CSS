@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Lines go brrr...</title>
+
+    <style>
+      body {
+        background-color: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: white;
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sliders {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1rem;
+        row-gap: 0.4rem;
+      }
+
+      input[type="range"] {
+        width: 160px;
+      }
+
+      svg {
+        background-color: #222;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <svg width="400" height="400">
+        <!-- dashed lines -->
+        <line
+          id="dashed-1-x"
+          x1="0"
+          y1="80"
+          x2="50"
+          y2="80"
+          stroke="lightblue"
+          stroke-width="1"
+          stroke-dasharray="7, 5"
+        />
+        <line
+          id="dashed-1-y"
+          x1="50"
+          y1="0"
+          x2="50"
+          y2="80"
+          stroke="lightblue"
+          stroke-width="1"
+          stroke-dasharray="7, 5"
+        />
+        <line
+          id="dashed-2-x"
+          x1="0"
+          y1="300"
+          x2="220"
+          y2="300"
+          stroke="lightblue"
+          stroke-width="1"
+          stroke-dasharray="7, 5"
+        />
+        <line
+          id="dashed-2-y"
+          x1="220"
+          y1="0"
+          x2="220"
+          y2="300"
+          stroke="lightblue"
+          stroke-width="1"
+          stroke-dasharray="7, 5"
+        />
+
+        <!-- main line -->
+        <line
+          id="line"
+          x1="50"
+          y1="80"
+          x2="220"
+          y2="300"
+          stroke="oklch(0.9 0.3 164)"
+          stroke-width="2"
+        />
+
+        <!-- points -->
+        <circle id="point-1" cx="50" cy="80" r="4" fill="green" />
+        <circle id="point-2" cx="220" cy="300" r="4" fill="green" />
+      </svg>
+
+      <audio
+        id="tickSound"
+        src="./assets/sounds/click-sound.mp3"
+        preload="auto"
+      ></audio>
+
+      <div class="sliders">
+        <label>
+          X1
+          <input
+            type="range"
+            id="x1"
+            value="50"
+            min="0"
+            max="400"
+            class="coord-slider"
+          />
+        </label>
+        <label>
+          Y1
+          <input
+            type="range"
+            id="y1"
+            value="80"
+            min="0"
+            max="400"
+            class="coord-slider"
+          />
+        </label>
+        <label>
+          X2
+          <input
+            type="range"
+            id="x2"
+            value="220"
+            min="0"
+            max="400"
+            class="coord-slider"
+          />
+        </label>
+        <label>
+          Y2
+          <input
+            type="range"
+            id="y2"
+            value="300"
+            min="0"
+            max="400"
+            class="coord-slider"
+          />
+        </label>
+      </div>
+    </div>
+
+    <script>
+      // main line
+      const line = document.getElementById("line");
+
+      // points
+      const point1 = document.getElementById("point-1");
+      const point2 = document.getElementById("point-2");
+
+      // dashed lines
+      const dashed_1_x = document.getElementById("dashed-1-x");
+      const dashed_1_y = document.getElementById("dashed-1-y");
+      const dashed_2_x = document.getElementById("dashed-2-x");
+      const dashed_2_y = document.getElementById("dashed-2-y");
+
+      // tick sound
+      const tick = document.getElementById("tickSound");
+      const tickThreshold = 10;
+      const lastTickedValue = { x1: 0, x2: 0, y1: 0, y2: 0 };
+
+      function handleSliderChange(id, value) {
+        // tick sound
+        if (Math.abs(Number(value) - lastTickedValue[id]) >= tickThreshold) {
+          tick.currentTime = 0;
+          tick.play();
+          lastTickedValue[id] = Number(value);
+        }
+        line.setAttribute(id, value);
+      }
+
+      function handlePointChange(id, value) {
+        if (id === "x1") {
+          point1.setAttribute("cx", value);
+        } else if (id === "y1") {
+          point1.setAttribute("cy", value);
+        } else if (id === "x2") {
+          point2.setAttribute("cx", value);
+        } else if (id === "y2") {
+          point2.setAttribute("cy", value);
+        }
+      }
+
+      function handleDashedLines(id, value) {
+        if (id === "x1") {
+          dashed_1_x.setAttribute("x2", value);
+          dashed_1_y.setAttribute("x1", value);
+          dashed_1_y.setAttribute("x2", value);
+        } else if (id === "y1") {
+          dashed_1_y.setAttribute("y2", value);
+          dashed_1_x.setAttribute("y1", value);
+          dashed_1_x.setAttribute("y2", value);
+        } else if (id === "x2") {
+          dashed_2_x.setAttribute("x2", value);
+          dashed_2_y.setAttribute("x1", value);
+          dashed_2_y.setAttribute("x2", value);
+        } else if (id === "y2") {
+          dashed_2_y.setAttribute("y2", value);
+          dashed_2_x.setAttribute("y1", value);
+          dashed_2_x.setAttribute("y2", value);
+        }
+      }
+
+      document.querySelectorAll(".coord-slider").forEach((slider) => {
+        slider.addEventListener("input", (event) => {
+          const { id, value } = event.target; // ex: "x1", 170
+
+          handlePointChange(id, value);
+          handleSliderChange(id, value);
+          handleDashedLines(id, value);
+        });
+      });
+    </script>
+  </body>
+</html>
